@@ -15,6 +15,7 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="catalog.html" class="active">Catalog</a></li>
+        <li><a href="register.html">Register</a></li>
       </ul>
     </nav>
   </header>
@@ -31,10 +32,9 @@
           type="text" 
           id="search-input" 
           placeholder="Search items..." 
-          oninput="filterProducts()" 
           aria-label="Search items"
         >
-        <select id="category-select" onchange="filterProducts()" aria-label="Select category">
+        <select id="category-select" aria-label="Select category">
           <option value="all">All Categories</option>
           <option value="books">Textbooks</option>
           <option value="electronics">Electronics</option>
@@ -54,16 +54,9 @@
           <p class="price">$35.00</p>
           <p class="description">Gently used textbook for CS101. Minimal highlighting on the first two chapters.</p>
           
-          <!-- Quantity & Calculation -->
           <div class="calc-box">
             <label for="qty-1">Qty:</label>
-            <input 
-              type="number" 
-              id="qty-1" 
-              value="1" 
-              min="1" 
-              oninput="calculateItemTotal(1, 35.00)"
-            >
+            <input type="number" id="qty-1" value="1" min="1">
             <span>Total: $ <strong id="total-1">35.00</strong></span>
           </div>
 
@@ -79,16 +72,9 @@
           <p class="price">$50.00</p>
           <p class="description">Great for studying in noisy libraries. Battery holds charge for 20+ hours.</p>
           
-          <!-- Quantity & Calculation -->
           <div class="calc-box">
             <label for="qty-2">Qty:</label>
-            <input 
-              type="number" 
-              id="qty-2" 
-              value="1" 
-              min="1" 
-              oninput="calculateItemTotal(2, 50.00)"
-            >
+            <input type="number" id="qty-2" value="1" min="1">
             <span>Total: $ <strong id="total-2">50.00</strong></span>
           </div>
 
@@ -104,16 +90,9 @@
           <p class="price">$80.00</p>
           <p class="description">Clean, quiet, and perfectly sized for campus housing rooms. Includes freezer tray.</p>
           
-          <!-- Quantity & Calculation -->
           <div class="calc-box">
             <label for="qty-3">Qty:</label>
-            <input 
-              type="number" 
-              id="qty-3" 
-              value="1" 
-              min="1" 
-              oninput="calculateItemTotal(3, 80.00)"
-            >
+            <input type="number" id="qty-3" value="1" min="1">
             <span>Total: $ <strong id="total-3">80.00</strong></span>
           </div>
 
@@ -129,16 +108,9 @@
           <p class="price">$45.00</p>
           <p class="description">Adjustable height and lumbar support. Perfect for long study and coding sessions.</p>
           
-          <!-- Quantity & Calculation -->
           <div class="calc-box">
             <label for="qty-4">Qty:</label>
-            <input 
-              type="number" 
-              id="qty-4" 
-              value="1" 
-              min="1" 
-              oninput="calculateItemTotal(4, 45.00)"
-            >
+            <input type="number" id="qty-4" value="1" min="1">
             <span>Total: $ <strong id="total-4">45.00</strong></span>
           </div>
 
@@ -154,7 +126,6 @@
     <p>&copy; 2026 CampusMarket. Built for students, by students.</p>
   </footer>
 
-  <!-- Separate JS File -->
   <script src="app.js"></script>
 </body>
 </html>

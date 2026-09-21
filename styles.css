@@ -255,3 +255,94 @@ footer {
   border-radius: 4px;
   text-align: center;
 }
+/* --- Registration Form Styles --- */
+.form-container {
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.form-container h1 {
+  font-size: 1.8rem;
+  color: #1d3557;
+  margin-bottom: 0.5rem;
+}
+
+.form-container p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #1d3557;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #1d3557;
+}
+
+.password-input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.toggle-btn {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 0 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #1d3557;
+}
+
+.toggle-btn:hover {
+  background-color: #ccc;
+}
+
+.btn-block {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* --- Feedback Message Box --- */
+.message-box {
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.message-box.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.message-box.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusMarket | Register</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="logo">CampusMarket</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+        <li><a href="register.html" class="active">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="form-container">
+      <h1>Create a CampusMarket Account</h1>
+      <p>Join fellow students buying and selling on campus.</p>
+
+      <!-- Feedback / Alert Message Box -->
+      <div id="form-message" class="message-box" style="display: none;"></div>
+
+      <form id="register-form" novalidate>
+        
+        <!-- Field 1: Required Full Name -->
+        <div class="form-group">
+          <label for="fullname">Full Name *</label>
+          <input type="text" id="fullname" placeholder="John Doe">
+        </div>
+
+        <!-- Field 2: Campus Email (Format Check) -->
+        <div class="form-group">
+          <label for="email">Campus Email *</label>
+          <input type="email" id="email" placeholder="student@university.edu">
+        </div>
+
+        <!-- Field 3: Password -->
+        <div class="form-group">
+          <label for="password">Password *</label>
+          <div class="password-input-wrapper">
+            <input type="password" id="password" placeholder="At least 6 characters">
+            <button type="button" id="toggle-password-btn" class="toggle-btn">Show</button>
+          </div>
+        </div>
+
+        <!-- Field 4: Confirm Password (Custom Rule: Must Match) -->
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password *</label>
+          <input type="password" id="confirm-password" placeholder="Re-enter password">
+        </div>
+
+        <button type="submit" class="btn btn-block">Register Account</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer>
+    <p>&copy; 2026 CampusMarket. Built for students, by students.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
