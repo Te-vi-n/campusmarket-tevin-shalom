@@ -21,25 +21,26 @@
   </header>
 
   <main>
-    <section class="form-container">
+    <section class="form-container" id="form-card">
       <h1>Create a CampusMarket Account</h1>
       <p>Join fellow students buying and selling on campus.</p>
 
-      <!-- Feedback / Alert Message Box -->
-      <div id="form-message" class="message-box" style="display: none;"></div>
+      <!-- Feedback / Animated Alert Message Box -->
+      <div id="form-message" class="message-box message-hidden" aria-live="polite"></div>
 
       <form id="register-form" novalidate>
         
         <!-- Field 1: Required Full Name -->
         <div class="form-group">
           <label for="fullname">Full Name *</label>
-          <input type="text" id="fullname" placeholder="John Doe">
+          <input type="text" id="fullname" placeholder="Jane Doe">
         </div>
 
-        <!-- Field 2: Campus Email (Format Check) -->
+        <!-- Field 2: Campus Email (Format Check + Web 2.0 Domain Checker) -->
         <div class="form-group">
           <label for="email">Campus Email *</label>
-          <input type="email" id="email" placeholder="student@university.edu">
+          <input type="email" id="email" placeholder="student@university.ac.ke">
+          <small id="email-web2-status" class="web2-status-hint"></small>
         </div>
 
         <!-- Field 3: Password -->
@@ -51,13 +52,13 @@
           </div>
         </div>
 
-        <!-- Field 4: Confirm Password (Custom Rule: Must Match) -->
+        <!-- Field 4: Confirm Password (Custom Rule) -->
         <div class="form-group">
           <label for="confirm-password">Confirm Password *</label>
           <input type="password" id="confirm-password" placeholder="Re-enter password">
         </div>
 
-        <button type="submit" class="btn btn-block">Register Account</button>
+        <button type="submit" id="submit-btn" class="btn btn-block">Register Account</button>
       </form>
     </section>
   </main>

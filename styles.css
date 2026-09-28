@@ -1,4 +1,4 @@
-/* --- Global Styles & Reset --- */
+/* --- Reset & Base Styles --- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -19,6 +19,12 @@ main {
   flex: 1;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* --- Navigation Header --- */
 header {
   background-color: #1d3557;
@@ -27,12 +33,12 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
+  flex-wrap: wrap;
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
 }
 
 nav ul {
@@ -54,7 +60,7 @@ nav a:hover, nav a.active {
   background-color: #457b9d;
 }
 
-/* --- Hero Section (Index) --- */
+/* --- Hero Section --- */
 .hero {
   background-color: #e63946;
   color: #ffffff;
@@ -63,16 +69,11 @@ nav a:hover, nav a.active {
 }
 
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   margin-bottom: 1rem;
 }
 
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-/* --- Feature Section (Index) --- */
+/* --- Feature Grid (Home Page) --- */
 .features {
   max-width: 1100px;
   margin: 3rem auto;
@@ -80,16 +81,11 @@ nav a:hover, nav a.active {
   text-align: center;
 }
 
-.features h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: #1d3557;
-}
-
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .feature-card {
@@ -99,22 +95,105 @@ nav a:hover, nav a.active {
   border: 1px solid #e0e0e0;
 }
 
-.feature-card h3 {
-  margin-bottom: 0.5rem;
-  color: #e63946;
+.feature-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
 }
 
-/* --- Catalog Section --- */
+/* --- Catalog & Filter Bar --- */
 .catalog-header {
   text-align: center;
   padding: 2.5rem 1.5rem 1rem;
 }
 
-.catalog-header h1 {
-  color: #1d3557;
-  font-size: 2.2rem;
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
+.filter-container input,
+.filter-container select {
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* --- Interactive Gallery Section (Part 1 Integration) --- */
+.gallery-section {
+  max-width: 700px;
+  margin: 1.5rem auto 3rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.gallery-section h2 {
+  font-size: 1.4rem;
+  color: #1d3557;
+  margin-bottom: 1rem;
+}
+
+.slideshow-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.slide-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.slide-wrapper img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 6px;
+
+  /* Smooth transition on slide changes */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.slide-caption {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.slideshow-btn {
+  background-color: #1d3557;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.slideshow-btn:hover {
+  background-color: #e63946;
+}
+
+.gallery-status-text {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* --- Catalog Grid --- */
 .catalog-grid {
   max-width: 1100px;
   margin: 2rem auto 4rem;
@@ -134,14 +213,15 @@ nav a:hover, nav a.active {
 }
 
 .product-image-placeholder {
-  background-color: #a8dede;
-  color: #1d3557;
-  height: 160px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.1rem;
+  height: 180px;
+  overflow: hidden;
+  background-color: #e9ecef;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .product-details {
@@ -153,109 +233,52 @@ nav a:hover, nav a.active {
 
 .product-details h2 {
   font-size: 1.1rem;
-  margin-bottom: 0.5rem;
   color: #1d3557;
+  margin-bottom: 0.5rem;
 }
 
 .product-details .price {
   font-size: 1.25rem;
   font-weight: bold;
   color: #e63946;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
-.product-details .description {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 1.5rem;
-  flex-grow: 1;
-}
-
-/* --- Buttons --- */
-.btn {
-  display: inline-block;
-  background-color: #1d3557;
-  color: #ffffff;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 5px;
-  transition: background-color 0.2s ease;
-}
-
-.btn:hover {
-  background-color: #457b9d;
-}
-
-.btn-secondary {
-  display: block;
-  text-align: center;
-  background-color: #f1faee;
-  color: #1d3557;
-  border: 1px solid #1d3557;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background-color: #1d3557;
-  color: #ffffff;
-}
-
-/* --- Shared Footer --- */
-footer {
-  background-color: #1d3557;
-  color: #ffffff;
-  text-align: center;
-  padding: 1.5rem;
-  font-size: 0.9rem;
-}
-/* --- Filter Controls --- */
-.filter-container {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.filter-container input,
-.filter-container select {
-  padding: 0.6rem 1rem;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-}
-
-.filter-container input:focus,
-.filter-container select:focus {
-  border-color: #1d3557;
-}
-
-/* --- Calculation Controls --- */
 .calc-box {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0 0.25rem;
   background-color: #f8f9fa;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem;
   border-radius: 5px;
   font-size: 0.9rem;
 }
 
 .calc-box input[type="number"] {
-  width: 50px;
+  width: 55px;
   padding: 0.3rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  text-align: center;
 }
-/* --- Registration Form Styles --- */
+
+/* Specific error message styling with CSS transition */
+.calc-error-msg {
+  color: #d90429;
+  font-size: 0.78rem;
+  font-weight: 600;
+  min-height: 1.2rem;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.calc-error-msg.error-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Registration Form & Web 2.0 Feature --- */
 .form-container {
   max-width: 500px;
   margin: 3rem auto;
@@ -263,17 +286,6 @@ footer {
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
-}
-
-.form-container h1 {
-  font-size: 1.8rem;
-  color: #1d3557;
-  margin-bottom: 0.5rem;
-}
-
-.form-container p {
-  color: #666;
-  margin-bottom: 1.5rem;
 }
 
 .form-group {
@@ -292,12 +304,6 @@ footer {
   padding: 0.65rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 0.95rem;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #1d3557;
 }
 
 .password-input-wrapper {
@@ -312,27 +318,34 @@ footer {
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #1d3557;
 }
 
-.toggle-btn:hover {
-  background-color: #ccc;
+.web2-status-hint {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-.btn-block {
-  width: 100%;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
+.web2-status-hint.valid { color: #2a9d8f; }
+.web2-status-hint.info { color: #457b9d; }
 
-/* --- Feedback Message Box --- */
+/* Transition for error/success message boxes */
 .message-box {
   padding: 0.75rem 1rem;
   border-radius: 4px;
   margin-bottom: 1.25rem;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease-in-out;
+}
+
+.message-box.message-visible {
+  opacity: 1;
+  max-height: 100px;
 }
 
 .message-box.error {
@@ -345,4 +358,67 @@ footer {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
+}
+
+/* --- Part 1, Req 3: Keyframes Animation for Validated Submit Confirmation --- */
+@keyframes pulseSuccess {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(42, 157, 143, 0); }
+  50% { transform: scale(1.02); box-shadow: 0 0 15px rgba(42, 157, 143, 0.5); }
+  100% { transform: scale(1); box-shadow: 0 0 0 rgba(42, 157, 143, 0); }
+}
+
+.animate-pulse-success {
+  animation: pulseSuccess 0.6s ease-out;
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-block;
+  background-color: #1d3557;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-block { width: 100%; }
+
+.btn-secondary {
+  display: block;
+  text-align: center;
+  background-color: #f1faee;
+  color: #1d3557;
+  border: 1px solid #1d3557;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+footer {
+  background-color: #1d3557;
+  color: #ffffff;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* --- Responsive Media Query --- */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .slideshow-container {
+    flex-direction: column;
+  }
+
+  .slideshow-btn {
+    width: 100%;
+    padding: 0.5rem;
+  }
 }

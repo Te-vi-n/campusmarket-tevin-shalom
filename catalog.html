@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CampusMarket | Catalog</title>
+  <title>CampusMarket | Catalog & Gallery</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -21,10 +21,9 @@
   </header>
 
   <main>
-    <!-- Catalog Header -->
     <section class="catalog-header">
       <h1>Campus Marketplace Listings</h1>
-      <p>Find affordable essentials listed by students near you.</p>
+      <p>Find affordable essentials listed by verified campus students.</p>
 
       <!-- Filter Controls -->
       <div class="filter-container">
@@ -43,12 +42,33 @@
       </div>
     </section>
 
+    <!-- Part 1 Integration: Interactive Dynamic Product Gallery -->
+    <section class="gallery-section">
+      <h2>Featured Filtered Items Showcase</h2>
+      <div class="slideshow-container">
+        <button id="prev-slide-btn" class="slideshow-btn" aria-label="Previous Slide">&lt;</button>
+        
+        <div class="slide-wrapper">
+          <img id="gallery-image" src="" alt="CampusMarket featured product preview image">
+          <div class="slide-caption">
+            <h3 id="gallery-title">Product Title</h3>
+            <p id="gallery-price" class="price">$0.00</p>
+          </div>
+        </div>
+
+        <button id="next-slide-btn" class="slideshow-btn" aria-label="Next Slide">&gt;</button>
+      </div>
+      <p id="gallery-status" class="gallery-status-text">Showing item 1 of 4</p>
+    </section>
+
     <!-- Product Grid Section -->
-    <section class="catalog-grid">
+    <section class="catalog-grid" id="catalog-grid">
       
-      <!-- Product 1 -->
-      <article class="product-card" id="product-1">
-        <div class="product-image-placeholder">Textbook</div>
+      <!-- Product Card 1 -->
+      <article class="product-card" id="product-1" data-category="books">
+        <div class="product-image-placeholder">
+          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80" alt="Cover of Introduction to Computer Science 8th edition textbook" class="product-img">
+        </div>
         <div class="product-details">
           <h2>Introduction to Computer Science (8th Ed)</h2>
           <p class="price">$35.00</p>
@@ -56,17 +76,20 @@
           
           <div class="calc-box">
             <label for="qty-1">Qty:</label>
-            <input type="number" id="qty-1" value="1" min="1">
+            <input type="number" id="qty-1" value="1" min="0" data-product-id="1">
             <span>Total: $ <strong id="total-1">35.00</strong></span>
           </div>
+          <div id="calc-error-1" class="calc-error-msg" aria-live="polite"></div>
 
           <a href="#" class="btn-secondary">Contact Seller</a>
         </div>
       </article>
 
-      <!-- Product 2 -->
-      <article class="product-card" id="product-2">
-        <div class="product-image-placeholder">Electronics</div>
+      <!-- Product Card 2 -->
+      <article class="product-card" id="product-2" data-category="electronics">
+        <div class="product-image-placeholder">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Black wireless noise-canceling over-ear headphones" class="product-img">
+        </div>
         <div class="product-details">
           <h2>Wireless Noise-Canceling Headphones</h2>
           <p class="price">$50.00</p>
@@ -74,17 +97,20 @@
           
           <div class="calc-box">
             <label for="qty-2">Qty:</label>
-            <input type="number" id="qty-2" value="1" min="1">
+            <input type="number" id="qty-2" value="1" min="0" data-product-id="2">
             <span>Total: $ <strong id="total-2">50.00</strong></span>
           </div>
+          <div id="calc-error-2" class="calc-error-msg" aria-live="polite"></div>
 
           <a href="#" class="btn-secondary">Contact Seller</a>
         </div>
       </article>
 
-      <!-- Product 3 -->
-      <article class="product-card" id="product-3">
-        <div class="product-image-placeholder">Dorm Gear</div>
+      <!-- Product Card 3 -->
+      <article class="product-card" id="product-3" data-category="housing">
+        <div class="product-image-placeholder">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" alt="Compact silver dorm room mini fridge with door closed" class="product-img">
+        </div>
         <div class="product-details">
           <h2>Compact Mini-Fridge (3.2 cu ft)</h2>
           <p class="price">$80.00</p>
@@ -92,17 +118,20 @@
           
           <div class="calc-box">
             <label for="qty-3">Qty:</label>
-            <input type="number" id="qty-3" value="1" min="1">
+            <input type="number" id="qty-3" value="1" min="0" data-product-id="3">
             <span>Total: $ <strong id="total-3">80.00</strong></span>
           </div>
+          <div id="calc-error-3" class="calc-error-msg" aria-live="polite"></div>
 
           <a href="#" class="btn-secondary">Contact Seller</a>
         </div>
       </article>
 
-      <!-- Product 4 -->
-      <article class="product-card" id="product-4">
-        <div class="product-image-placeholder">Furniture</div>
+      <!-- Product Card 4 -->
+      <article class="product-card" id="product-4" data-category="housing">
+        <div class="product-image-placeholder">
+          <img src="https://images.unsplash.com/photo-1580481072645-022f9a6d1270?auto=format&fit=crop&w=400&q=80" alt="Black ergonomic mesh study desk chair with armrests" class="product-img">
+        </div>
         <div class="product-details">
           <h2>Ergonomic Mesh Desk Chair</h2>
           <p class="price">$45.00</p>
@@ -110,9 +139,10 @@
           
           <div class="calc-box">
             <label for="qty-4">Qty:</label>
-            <input type="number" id="qty-4" value="1" min="1">
+            <input type="number" id="qty-4" value="1" min="0" data-product-id="4">
             <span>Total: $ <strong id="total-4">45.00</strong></span>
           </div>
+          <div id="calc-error-4" class="calc-error-msg" aria-live="polite"></div>
 
           <a href="#" class="btn-secondary">Contact Seller</a>
         </div>
