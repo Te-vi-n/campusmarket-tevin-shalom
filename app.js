@@ -1,79 +1,114 @@
-// Central Shared Data Source (Integration Rule 1)
-const catalogData = [
-  {
-    id: 1,
-    name: "Introduction to Computer Science (8th Ed)",
-    category: "books",
-    price: 35.00,
-    elementId: "product-1",
-    imgUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
-    altText: "Cover of Introduction to Computer Science 8th edition textbook"
-  },
-  {
-    id: 2,
-    name: "Wireless Noise-Canceling Headphones",
-    category: "electronics",
-    price: 50.00,
-    elementId: "product-2",
-    imgUrl: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
-    altText: "Black wireless noise-canceling over-ear headphones"
-  },
-  {
-    id: 3,
-    name: "Compact Mini-Fridge (3.2 cu ft)",
-    category: "housing",
-    price: 80.00,
-    elementId: "product-3",
-    imgUrl: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
-    altText: "Compact silver dorm room mini fridge with door closed"
-  },
-  {
-    id: 4,
-    name: "Ergonomic Mesh Desk Chair",
-    category: "housing",
-    price: 45.00,
-    elementId: "product-4",
-    imgUrl: "https://images.unsplash.com/photo-1580481072645-022f9a6d1270?auto=format&fit=crop&w=600&q=80",
-    altText: "Black ergonomic mesh study desk chair with armrests"
-  }
-];
+// Central Shared Data Source - Now populated dynamically via fetch (Assignment 5)
+let catalogData = [];
 
-// State variables
-let activeGalleryItems = [...catalogData];
+// State variables for Assignment 4 gallery
+let activeGalleryItems = [];
 let currentGalleryIndex = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Initialize Catalog & Gallery Page
-  const searchInput = document.getElementById("search-input");
-  const categorySelect = document.getElementById("category-select");
-
-  if (searchInput && categorySelect) {
-    searchInput.addEventListener("input", filterCatalogAndGallery);
-    categorySelect.addEventListener("change", filterCatalogAndGallery);
-
-    // Initial setup of gallery slideshow
-    setupGalleryControls();
-    updateGalleryDisplay();
-
-    // Attach listeners for quantity inputs
-    catalogData.forEach(item => {
-      const qtyInput = document.getElementById(`qty-${item.id}`);
-      if (qtyInput) {
-        qtyInput.addEventListener("input", (e) => handleValidatedCalculation(e, item));
-      }
-    });
-  }
-
-  // Initialize Registration Page
+document.addEventListener("DOMContentLoaded", async () => {
+  // 1. Initialize Registration Page (Independent of product fetch)
   const registerForm = document.getElementById("register-form");
   if (registerForm) {
     setupRegistrationPage();
   }
+
+  // 2. Initialize Catalog & Gallery Page with Live Fetch (Assignment 5)
+  const productGrid = document.getElementById("product-grid");
+  const searchInput = document.getElementById("search-input");
+  const categorySelect = document.getElementById("category-select");
+
+  if (productGrid) {
+    await loadCatalogProducts(productGrid, searchInput, categorySelect);
+  }
+  console.log("App script loaded and DOM is ready!");
 });
 
 /**
+ * Assignment 5: Asynchronous Fetch, Loading State, and Error Handling
+ */
+async function loadCatalogProducts(productGrid, searchInput, categorySelect) {
+  // 4. Real loading state
+  productGrid.innerHTML = '<p class="loading-msg">Loading products...</p>';
+
+  try {
+    const response = await fetch("products.json");
+
+    // 3. Check response.ok
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    catalogData = await response.json();
+    activeGalleryItems = [...catalogData];
+
+    // Build product cards dynamically in the DOM
+    renderProductCards(catalogData, productGrid);
+
+    // Setup filters, gallery, and calculations once data is loaded
+    if (searchInput && categorySelect) {
+      searchInput.addEventListener("input", filterCatalogAndGallery);
+      categorySelect.addEventListener("change", filterCatalogAndGallery);
+
+      setupGalleryControls();
+      updateGalleryDisplay();
+
+      // Attach listeners for quantity inputs
+      catalogData.forEach(item => {
+        const qtyInput = document.getElementById(`qty-${item.id}`);
+        if (qtyInput) {
+          qtyInput.addEventListener("input", (e) => handleValidatedCalculation(e, item));
+        }
+      });
+    }
+
+  } catch (error) {
+    console.error("Fetch failed:", error);
+    // 3. Graceful failure state (page doesn't break)
+    productGrid.innerHTML = `
+      <div class="error-container">
+        <p class="error-msg">⚠️ Unable to load products at this moment. Please check back later.</p>
+      </div>
+    `;
+  }
+}
+
+/**
+ * Dynamically builds product cards using DOM methods (Assignment 5 requirement)
+ */
+function renderProductCards(products, gridContainer) {
+  gridContainer.innerHTML = "";
+
+  if (products.length === 0) {
+    gridContainer.innerHTML = '<p class="no-results">No products found.</p>';
+    return;
+  }
+
+  products.forEach(item => {
+    const card = document.createElement("div");
+    card.id = item.elementId;
+    card.className = "product-card"; // Keep your existing CSS class
+
+    card.innerHTML = `
+      <img src="${item.imgUrl}" alt="${item.altText}">
+      <div class="product-info">
+        <h3>${item.name}</h3>
+        <p class="category">Category: ${item.category}</p>
+        <p class="price">$${item.price.toFixed(2)}</p>
+        <div class="calc-section">
+          <label for="qty-${item.id}">Quantity:</label>
+          <input type="number" id="qty-${item.id}" class="qty-input" min="0" placeholder="0">
+          <span id="calc-error-${item.id}" class="calc-error"></span>
+          <p>Total: $<span id="total-${item.id}">0.00</span></p>
+        </div>
+      </div>
+    `;
+
+    gridContainer.appendChild(card);
+  });
+}
+
+/**
  * Part 1, Requirement 1: Filtered results drive what the gallery shows.
- * The filter function updates both product card displays AND the shared array driving the slideshow gallery.
  */
 function filterCatalogAndGallery() {
   const searchVal = document.getElementById("search-input").value.toLowerCase().trim();
@@ -81,7 +116,6 @@ function filterCatalogAndGallery() {
 
   activeGalleryItems = [];
 
-  // Loop through items and evaluate matching criteria
   for (const item of catalogData) {
     const cardElement = document.getElementById(item.elementId);
     const matchesSearch = item.name.toLowerCase().includes(searchVal);
@@ -95,7 +129,6 @@ function filterCatalogAndGallery() {
     }
   }
 
-  // Reset gallery pointer and refresh slideshow state
   currentGalleryIndex = 0;
   updateGalleryDisplay();
 }
@@ -110,14 +143,12 @@ function setupGalleryControls() {
   if (prevBtn && nextBtn) {
     prevBtn.addEventListener("click", () => {
       if (activeGalleryItems.length === 0) return;
-      // Wraparound calculation
       currentGalleryIndex = (currentGalleryIndex - 1 + activeGalleryItems.length) % activeGalleryItems.length;
       updateGalleryDisplay();
     });
 
     nextBtn.addEventListener("click", () => {
       if (activeGalleryItems.length === 0) return;
-      // Wraparound calculation
       currentGalleryIndex = (currentGalleryIndex + 1) % activeGalleryItems.length;
       updateGalleryDisplay();
     });
@@ -154,7 +185,6 @@ function updateGalleryDisplay() {
 
 /**
  * Part 1, Requirement 2: Calculations respond to real, validated input.
- * Invalid quantities fail validation and clear/exclude total cost safely.
  */
 function handleValidatedCalculation(event, product) {
   const inputEl = event.target;
@@ -164,23 +194,21 @@ function handleValidatedCalculation(event, product) {
 
   const parsedQty = Number(rawValue);
 
-  // Validation Rule Checks
   if (rawValue === "" || isNaN(parsedQty)) {
     showCalcError(errorDisplay, "Please enter a valid numeric quantity.");
-    totalDisplay.textContent = "0.00";
+    if (totalDisplay) totalDisplay.textContent = "0.00";
     return;
   }
 
   if (!Number.isInteger(parsedQty) || parsedQty < 0) {
     showCalcError(errorDisplay, "Quantity must be a positive whole number.");
-    totalDisplay.textContent = "0.00";
+    if (totalDisplay) totalDisplay.textContent = "0.00";
     return;
   }
 
-  // Clear errors and run calculation on valid input
   hideCalcError(errorDisplay);
   const grandTotal = parsedQty * product.price;
-  totalDisplay.textContent = grandTotal.toFixed(2);
+  if (totalDisplay) totalDisplay.textContent = grandTotal.toFixed(2);
 }
 
 function showCalcError(element, message) {
@@ -203,7 +231,6 @@ function setupRegistrationPage() {
   const toggleBtn = document.getElementById("toggle-password-btn");
   const emailInput = document.getElementById("email");
 
-  // Show/Hide Password Toggle
   if (toggleBtn) {
     toggleBtn.addEventListener("click", () => {
       const pwdInput = document.getElementById("password");
@@ -216,7 +243,6 @@ function setupRegistrationPage() {
     });
   }
 
-  // Web 2.0 Live Dynamic Hint/Domain Indicator
   if (emailInput) {
     emailInput.addEventListener("input", () => {
       const statusHint = document.getElementById("email-web2-status");
@@ -234,15 +260,14 @@ function setupRegistrationPage() {
     });
   }
 
-  // Submit Handler
   form.addEventListener("submit", validateAndSubmitRegistration);
 }
 
 /**
- * Part 1, Requirements 3 & 4: Form Validation, Specific Errors, and Keyframes Confirmation Animation.
+ * Form Validation, Specific Errors, and Keyframes Confirmation Animation.
  */
 function validateAndSubmitRegistration(event) {
-  event.preventDefault(); // Prevent page reload
+  event.preventDefault();
 
   const fullName = document.getElementById("fullname").value.trim();
   const email = document.getElementById("email").value.trim();
@@ -253,13 +278,11 @@ function validateAndSubmitRegistration(event) {
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Validation Rule 1: Required Fields
   if (!fullName) {
     displayFeedback(messageBox, "Full Name is required and cannot be left blank.", "error");
     return;
   }
 
-  // Validation Rule 2: Email Format
   if (!email) {
     displayFeedback(messageBox, "Campus Email address is required.", "error");
     return;
@@ -268,7 +291,6 @@ function validateAndSubmitRegistration(event) {
     return;
   }
 
-  // Validation Rule 3: Custom Password Matching & Length
   if (password.length < 6) {
     displayFeedback(messageBox, "Password must contain at least 6 characters.", "error");
     return;
@@ -279,22 +301,21 @@ function validateAndSubmitRegistration(event) {
     return;
   }
 
-  // --- Successful Action Confirmation (Requirement 3) ---
   displayFeedback(messageBox, "Registration successful! Welcome to CampusMarket.", "success");
 
-  // Trigger CSS keyframe success animation on card via classList
-  formCard.classList.remove("animate-pulse-success");
-  void formCard.offsetWidth; // Force DOM reflow to re-trigger animation
-  formCard.classList.add("animate-pulse-success");
+  if (formCard) {
+    formCard.classList.remove("animate-pulse-success");
+    void formCard.offsetWidth;
+    formCard.classList.add("animate-pulse-success");
+  }
 
   document.getElementById("register-form").reset();
-  document.getElementById("email-web2-status").textContent = "";
+  const statusHint = document.getElementById("email-web2-status");
+  if (statusHint) statusHint.textContent = "";
 }
 
-/**
- * Part 1, Requirement 4: Animated smooth transition feedback display.
- */
 function displayFeedback(box, text, type) {
+  if (!box) return;
   box.textContent = text;
   box.className = `message-box ${type} message-visible`;
 }

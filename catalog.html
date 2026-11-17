@@ -58,96 +58,12 @@
 
         <button id="next-slide-btn" class="slideshow-btn" aria-label="Next Slide">&gt;</button>
       </div>
-      <p id="gallery-status" class="gallery-status-text">Showing item 1 of 4</p>
+      <p id="gallery-status" class="gallery-status-text">Showing item 0 of 0</p>
     </section>
 
-    <!-- Product Grid Section -->
-    <section class="catalog-grid" id="catalog-grid">
-      
-      <!-- Product Card 1 -->
-      <article class="product-card" id="product-1" data-category="books">
-        <div class="product-image-placeholder">
-          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80" alt="Cover of Introduction to Computer Science 8th edition textbook" class="product-img">
-        </div>
-        <div class="product-details">
-          <h2>Introduction to Computer Science (8th Ed)</h2>
-          <p class="price">$35.00</p>
-          <p class="description">Gently used textbook for CS101. Minimal highlighting on the first two chapters.</p>
-          
-          <div class="calc-box">
-            <label for="qty-1">Qty:</label>
-            <input type="number" id="qty-1" value="1" min="0" data-product-id="1">
-            <span>Total: $ <strong id="total-1">35.00</strong></span>
-          </div>
-          <div id="calc-error-1" class="calc-error-msg" aria-live="polite"></div>
-
-          <a href="#" class="btn-secondary">Contact Seller</a>
-        </div>
-      </article>
-
-      <!-- Product Card 2 -->
-      <article class="product-card" id="product-2" data-category="electronics">
-        <div class="product-image-placeholder">
-          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Black wireless noise-canceling over-ear headphones" class="product-img">
-        </div>
-        <div class="product-details">
-          <h2>Wireless Noise-Canceling Headphones</h2>
-          <p class="price">$50.00</p>
-          <p class="description">Great for studying in noisy libraries. Battery holds charge for 20+ hours.</p>
-          
-          <div class="calc-box">
-            <label for="qty-2">Qty:</label>
-            <input type="number" id="qty-2" value="1" min="0" data-product-id="2">
-            <span>Total: $ <strong id="total-2">50.00</strong></span>
-          </div>
-          <div id="calc-error-2" class="calc-error-msg" aria-live="polite"></div>
-
-          <a href="#" class="btn-secondary">Contact Seller</a>
-        </div>
-      </article>
-
-      <!-- Product Card 3 -->
-      <article class="product-card" id="product-3" data-category="housing">
-        <div class="product-image-placeholder">
-          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" alt="Compact silver dorm room mini fridge with door closed" class="product-img">
-        </div>
-        <div class="product-details">
-          <h2>Compact Mini-Fridge (3.2 cu ft)</h2>
-          <p class="price">$80.00</p>
-          <p class="description">Clean, quiet, and perfectly sized for campus housing rooms. Includes freezer tray.</p>
-          
-          <div class="calc-box">
-            <label for="qty-3">Qty:</label>
-            <input type="number" id="qty-3" value="1" min="0" data-product-id="3">
-            <span>Total: $ <strong id="total-3">80.00</strong></span>
-          </div>
-          <div id="calc-error-3" class="calc-error-msg" aria-live="polite"></div>
-
-          <a href="#" class="btn-secondary">Contact Seller</a>
-        </div>
-      </article>
-
-      <!-- Product Card 4 -->
-      <article class="product-card" id="product-4" data-category="housing">
-        <div class="product-image-placeholder">
-          <img src="https://images.unsplash.com/photo-1580481072645-022f9a6d1270?auto=format&fit=crop&w=400&q=80" alt="Black ergonomic mesh study desk chair with armrests" class="product-img">
-        </div>
-        <div class="product-details">
-          <h2>Ergonomic Mesh Desk Chair</h2>
-          <p class="price">$45.00</p>
-          <p class="description">Adjustable height and lumbar support. Perfect for long study and coding sessions.</p>
-          
-          <div class="calc-box">
-            <label for="qty-4">Qty:</label>
-            <input type="number" id="qty-4" value="1" min="0" data-product-id="4">
-            <span>Total: $ <strong id="total-4">45.00</strong></span>
-          </div>
-          <div id="calc-error-4" class="calc-error-msg" aria-live="polite"></div>
-
-          <a href="#" class="btn-secondary">Contact Seller</a>
-        </div>
-      </article>
-
+    <!-- Product Grid Section (Dynamically populated via fetch in Assignment 5) -->
+    <section class="catalog-grid" id="product-grid">
+      <!-- Product cards will be injected here automatically by app.js -->
     </section>
   </main>
 
